@@ -39,9 +39,9 @@ class ICMPTunnelSocket(Socket):
 		buff = self.sock.recv(self._mtu)
 		icmp_packet = IP(buff)
 		if not icmp_packet[ICMP].id == self.id:
-			print("Wrong ICMP id received")
+			print("Unexpected ICMP id received")
 			return
-		print('ICMP socket received {len(buff)} bytes!')
+		print('ICMP socket received %d bytes' % len(buff))
 		return icmp_packet
 		
 	@classmethod
@@ -104,7 +104,7 @@ class UDPTunnelSocket(Socket):
 		"""
 		buff, self.remote = self.sock.recvfrom(self._mtu)
 		loopback_sock.send_packet_to_loopback(buff)
-		print('UDP socket received {len(buff)} bytes!')
+		print('UDP socket received %d bytes' % len(buff))
 
 	def send_packet_to_tunnel(self, data):
 		"""
@@ -149,7 +149,7 @@ class LoopbackSocket(Socket):
 		"""
 		buff = self.sock.recv(self._mtu)
 		tunnel_sock.send_packet_to_tunnel(raw(buff[TCP]))
-		print('IP socket received {len(raw(buff))} bytes!')
+		print('Loopback socket received %d bytes' % len(raw(buff)))
 
 	def send_packet_to_loopback(self, data):
 		"""
