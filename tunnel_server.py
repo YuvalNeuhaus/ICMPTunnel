@@ -21,7 +21,7 @@ def create_sockets(args):
 	Parse user arguments and create LOServerSocket and TunnelServerSocket
 	"""
 	if args.udp_port:
-		tunnel_sock = UDPTunnelServerSocket(mtu=args.mtu)
+		tunnel_sock = UDPTunnelServerSocket(tunnel_port=args.udp_port, mtu=args.mtu)
 	elif args.icmp_id:
 		tunnel_sock = ICMPTunnelServerSocket(icmp_id=args.icmp_id, mtu=args.mtu)
 
